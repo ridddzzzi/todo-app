@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+
+        /*background: linear-gradient(to right, #0ea5e9, #6366f1);*/
+    --font-heading: "Exo 2", sans-serif;
+    --font-body: 'Poppins', 'sans-serif';
+
+
+}
