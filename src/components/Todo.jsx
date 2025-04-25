@@ -93,7 +93,7 @@ useEffect(() => {
                     onClick={addTasks}
                     className="absolute top-1 right-1 h-12 px-8 bg-amber-400 text-sm sm:text-base
     rounded-full font-bold font-body hover:shadow-xl shadow-amber-300
-    active:translate-y-[2px] active:shadow-inner transition-transform"
+    active:translate-y-[2px] active:shadow-inner transition-transform cursor-pointer"
                 >
                     Add +
                 </button>
