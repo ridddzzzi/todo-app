@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import logo from '../assets/Group 1.png';
+import tick from '../assets/Tick.png';
+import unticked from '../assets/Unticked.png';
+import del_icon from '../assets/Del_icon.png';
+// import TodoItems from './TodoItems.jsx'
 
 const Todo = () => {
     const [input, setInput] = useState('');
@@ -9,14 +13,32 @@ const Todo = () => {
         setInput(e.target.value);
     };
 
+
     const addTasks = () => {
         if (input.trim() === '') {
             alert('Please Enter A Task!');
             return;
         }
-        setTasks([...tasks, input]);
+        const newTask = {
+            text: input,
+            completed: false,
+        };
+        setTasks([...tasks, newTask]);
         setInput('');
     };
+
+    const toggleTask = (index) => {
+        const updatedTasks = [...tasks];
+        updatedTasks[index].completed = !updatedTasks[index].completed;
+        setTasks(updatedTasks);
+    };
+    const deleteTask = (indexToDelete) => {
+        const updatedTasks = tasks.filter((_, index) => index !== indexToDelete);
+        setTasks(updatedTasks);
+    };
+
+
+
 
     return (
         <div className='flex flex-col bg-white w-11/12 max-w-md p-4 sm:p-7
@@ -32,48 +54,6 @@ const Todo = () => {
                 </h1>
             </div>
 
-            {/* Input + Button */}
-            {/*<div className='flex flex-col sm:flex-row gap-4 items-center justify-center my-5 w-full'>*/}
-          {/*  <div className='relative w-full max-w-md mx-auto my-5'>*/}
-          {/*      <input*/}
-          {/*          className='border border-slate-300 rounded-xl h-14 px-5 py-2 w-full sm:w-auto flex-1 mx-2*/}
-          {/*hover:border-amber-500 outline-none active:border-blue-950*/}
-          {/*focus:outline-none focus:shadow-lg shadow-gray-500*/}
-          {/*focus:scale-105 transition-all duration-200 ease-in-out'*/}
-          {/*          type='text'*/}
-          {/*          placeholder='Add Task'*/}
-          {/*          value={input}*/}
-          {/*          onChange={handleInput}*/}
-          {/*      />*/}
-          {/*      <button*/}
-          {/*          className='bg-amber-400 rounded-xl font-body font-bold cursor-pointer*/}
-          {/*px-6 py-2 mx-2 w-full sm:w-[36vh] hover:shadow-2xl shadow-amber-500*/}
-          {/*active:translate-y-1 active:shadow-inner transition-transform text-xl'*/}
-          {/*          onClick={addTasks}*/}
-          {/*      >*/}
-          {/*          Add +*/}
-          {/*      </button>*/}
-          {/*  </div>*/}
-
-    {/*        <div className="relative w-full my-5">*/}
-    {/*            <input*/}
-    {/*                className="w-full h-14 px-5 pr-[6.5rem] border border-slate-100 rounded-full*/}
-    {/*outline-none hover:border-amber-500 active:border-blue-950*/}
-    {/*focus:shadow-lg shadow-gray-500 focus:scale-105 transition-all duration-200 ease-in-out"*/}
-    {/*                type="text"*/}
-    {/*                placeholder="Add Task"*/}
-    {/*                value={input}*/}
-    {/*                onChange={handleInput}*/}
-    {/*            />*/}
-    {/*            <button*/}
-    {/*                onClick={addTasks}*/}
-    {/*                className="absolute top-1.5 right-2 h-11 px-4 bg-amber-400 text-sm sm:text-base*/}
-    {/*rounded-full font-bold font-body hover:shadow-2xl shadow-amber-500*/}
-    {/*active:translate-y-1 active:shadow-inner transition-transform "*/}
-    {/*            >*/}
-    {/*                Add +*/}
-    {/*            </button>*/}
-    {/*        </div>*/}
 
 
 
@@ -98,15 +78,38 @@ const Todo = () => {
             </div>
 
             {/* Task List */}
-            <div className="flex flex-col gap-2 overflow-y-auto max-h-[300px] px-2">
+
+
+            <div className='flex flex-col gap-2 my-3'>
                 {tasks.map((task, index) => (
-                    <div key={index} className="bg-gray-100 px-4 py-2 rounded-xl shadow-sm text-base break-words">
-                        {task}
+                    <div key={index} className='flex items-center gap-5'>
+                        <img
+                            src={task.completed ? tick : unticked}
+                            alt='checkbox'
+                            className='w-7 cursor-pointer'
+                            onClick={() => toggleTask(index)}
+                        />
+                        <p className={`text-slate-700 text-[17px] font-body font-semibold flex-1 
+                ${task.completed ? 'line-through text-gray-400' : ''}`}>
+                            {task.text}
+                        </p>
+                        <img
+                            src={del_icon}
+                            alt='delete'
+                            className='w-3.5 cursor-pointer'
+                            onClick={() => deleteTask(index)}
+                        />
                     </div>
                 ))}
             </div>
+
+
+
+
         </div>
     );
 };
 
 export default Todo;
+
+// className="bg-gray-100 px-4 py-2 rounded-xl shadow-sm text-base break-words"
