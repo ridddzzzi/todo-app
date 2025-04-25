@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import logo from '../assets/Group 1.png';
 import tick from '../assets/tick.png';
 import unticked from '../assets/unticked.png';
@@ -7,8 +7,16 @@ import del_icon from '../assets/del_icon.png';
 
 const Todo = () => {
     const [input, setInput] = useState('');
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(() => {
+        const savedTasks = localStorage.getItem('tasks');
+        return savedTasks ? JSON.parse(savedTasks) : [];
+    });
 
+
+
+
+
+    
     const handleInput = (e) => {
         setInput(e.target.value);
     };
@@ -21,7 +29,7 @@ const Todo = () => {
         }
         const newTask = {
             text: input,
-            completed: false,
+            completed: false, //by default it is false so that later we can make it true to do the tick effect
         };
         setTasks([...tasks, newTask]);
         setInput('');
@@ -38,6 +46,20 @@ const Todo = () => {
     };
 
 
+    // Load tasks from localStorage when component mounts
+useEffect(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    if (savedTasks) {
+        setTasks(JSON.parse(savedTasks));
+    }
+}, []);
+
+// Save tasks to localStorage whenever tasks change
+useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    console.log(tasks); // Now this will show correctly
+}, [tasks]);
+  
 
 
     return (
