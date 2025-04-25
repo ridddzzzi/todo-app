@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import logo from '../assets/Group 1.png';
-import tick from '../assets/Tick.png';
-import unticked from '../assets/Unticked.png';
-import del_icon from '../assets/Del_icon.png';
+import tick from '../assets/tick.png';
+import unticked from '../assets/unticked.png';
+import del_icon from '../assets/del_icon.png';
 // import TodoItems from './TodoItems.jsx'
 
 const Todo = () => {
